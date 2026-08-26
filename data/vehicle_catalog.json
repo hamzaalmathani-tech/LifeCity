@@ -1,0 +1,36 @@
+{
+  "civil_airport": [
+    {"id":"cessna_172","type":"general_aviation","seats":4},
+    {"id":"twin_prop","type":"private_turboprop","seats":8},
+    {"id":"business_jet","type":"business_jet","seats":10},
+    {"id":"regional_airliner","type":"passenger_airliner","seats":80},
+    {"id":"narrowbody_airliner","type":"passenger_airliner","seats":180},
+    {"id":"widebody_airliner","type":"passenger_airliner","seats":320},
+    {"id":"cargo_aircraft","type":"cargo","seats":6}
+  ],
+  "special_airport": [
+    {"id":"helicopter","type":"civil_helicopter","seats":6},
+    {"id":"rescue_helicopter","type":"emergency","seats":8},
+    {"id":"utility_helicopter","type":"utility","seats":12}
+  ],
+  "military_airbase": [
+    {"id":"trainer_jet","type":"training_aircraft","role":"training"},
+    {"id":"fighter_jet","type":"fighter","role":"air_defense"},
+    {"id":"transport_aircraft","type":"military_transport","role":"logistics"},
+    {"id":"military_helicopter","type":"military_helicopter","role":"transport"},
+    {"id":"surveillance_aircraft","type":"surveillance","role":"reconnaissance"}
+  ],
+  "ground": [
+    {"id":"compact_car","type":"car"},
+    {"id":"sedan","type":"car"},
+    {"id":"suv","type":"suv"},
+    {"id":"pickup","type":"pickup"},
+    {"id":"sports_car","type":"sports"},
+    {"id":"bus","type":"bus"},
+    {"id":"taxi","type":"service"},
+    {"id":"ambulance","type":"emergency"},
+    {"id":"fire_truck","type":"emergency"},
+    {"id":"police_car","type":"emergency"},
+    {"id":"delivery_van","type":"commercial"}
+  ]
+}
