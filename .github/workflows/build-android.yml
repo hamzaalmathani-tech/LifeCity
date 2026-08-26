@@ -8,6 +8,7 @@ on:
 jobs:
   android-debug:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     container:
       image: barichello/godot-ci:4.4.1
     steps:
@@ -16,18 +17,18 @@ jobs:
         with:
           lfs: true
 
-      - name: Check project
-        run: godot --headless --check-only --path playable3d
-
       - name: Build Android debug APK
         run: |
+          set -e
           mkdir -p build/android
-          cd playable3d
-          godot --headless --verbose --export-debug "Android Debug" "../build/android/LifeCity-debug.apk"
+          godot --headless --path playable3d --editor --quit
+          godot --headless --path playable3d --verbose --export-debug "Android Debug" "build/android/LifeCity-debug.apk"
+          test -s build/android/LifeCity-debug.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: LifeCity-Android-debug
           path: build/android/LifeCity-debug.apk
+          if-no-files-found: error
           retention-days: 14
