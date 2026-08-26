@@ -8,7 +8,7 @@ on:
 jobs:
   android-debug:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     container:
       image: barichello/godot-ci:4.4.1
     steps:
@@ -17,9 +17,31 @@ jobs:
         with:
           lfs: true
 
+      - name: Prepare Godot Android export
+        run: |
+          set -e
+          export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v java)")")")"
+          export PATH="$JAVA_HOME/bin:$PATH"
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.4.1.stable"
+          wget -q --show-progress -O /tmp/godot-templates.tpz \
+            https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
+          unzip -oq /tmp/godot-templates.tpz -d /tmp/godot-templates
+          cp -f /tmp/godot-templates/templates/android_debug.apk "$HOME/.local/share/godot/export_templates/4.4.1.stable/android_debug.apk"
+          cp -f /tmp/godot-templates/templates/android_release.apk "$HOME/.local/share/godot/export_templates/4.4.1.stable/android_release.apk"
+          keytool -genkeypair -v \
+            -keystore /tmp/debug.keystore \
+            -storepass android \
+            -keypass android \
+            -alias androiddebugkey \
+            -keyalg RSA -keysize 2048 -validity 10000 \
+            -dname "CN=Android Debug,O=Android,C=US"
+          sed -i '/\[preset.0.options\]/a keystore/debug="/tmp/debug.keystore"\nkeystore/debug_user="androiddebugkey"\nkeystore/debug_password="android"' playable3d/export_presets.cfg
+
       - name: Build Android debug APK
         run: |
           set -e
+          export JAVA_HOME="$(dirname "$(dirname "$(readlink -f "$(command -v java)")")")"
+          export PATH="$JAVA_HOME/bin:$PATH"
           mkdir -p build/android
           godot --headless --path playable3d --editor --quit
           godot --headless --path playable3d --verbose --export-debug "Android Debug" "build/android/LifeCity-debug.apk"
