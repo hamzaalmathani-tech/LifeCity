@@ -11,7 +11,8 @@ func _ready():
 func _setup_environment():
     var env_node := WorldEnvironment.new()
     var env := Environment.new()
-    env.background_mode = Environment.BG_SKY
+    env.background_mode = Environment.BG_COLOR
+    env.background_color = Color(0.45, 0.68, 0.92)
     env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
     env.ambient_light_color = Color(0.55, 0.65, 0.8)
     env.ambient_light_energy = 0.8
@@ -25,7 +26,11 @@ func _setup_environment():
     add_child(sun)
 
 func _box(parent: Node3D, pos: Vector3, size: Vector3, color: Color, solid := true):
-    var body := StaticBody3D.new() if solid else Node3D.new()
+    var body: Node3D
+    if solid:
+        body = StaticBody3D.new()
+    else:
+        body = Node3D.new()
     body.position = pos
     parent.add_child(body)
     var mesh_node := MeshInstance3D.new()
@@ -70,7 +75,7 @@ func _build_city():
     _box(self, Vector3(55, 2, -38), Vector3(18, 4, 10), Color(0.65, 0.68, 0.72))
     _box(self, Vector3(55, 0.1, -55), Vector3(70, 0.2, 8), Color(0.12, 0.12, 0.14), false)
 
-    # Mountain and cave entrance
+    # Mountain and secret cave entrance
     _box(self, Vector3(-48, 8, 45), Vector3(28, 16, 24), Color(0.24, 0.27, 0.25))
     _box(self, Vector3(-48, 2, 32), Vector3(7, 4, 2), Color(0.03, 0.03, 0.035), false)
 
