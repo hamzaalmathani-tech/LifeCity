@@ -1,0 +1,19 @@
+{
+  "districts": ["downtown","suburbs","industrial","airport_civil","airport_special","military_base","rural"],
+  "weapons": [
+    {"id":"unarmed","category":"none"},
+    {"id":"pistol","category":"sidearm","fictional":true},
+    {"id":"smg","category":"automatic","fictional":true},
+    {"id":"shotgun","category":"shotgun","fictional":true},
+    {"id":"rifle","category":"rifle","fictional":true},
+    {"id":"non_lethal_stun","category":"non_lethal","fictional":true}
+  ],
+  "systems": [
+    "character_creation","needs","relationships","dialogue","jobs","economy","traffic","pedestrian_ai","vehicle_ai","wanted_system","police_ai","missions","weather","day_night","interiors","save_load","touch_controls","accessibility"
+  ],
+  "airports": [
+    {"id":"LCIA","name":"LifeCity International","role":"civil","hangars":12,"runways":2},
+    {"id":"LCH","name":"LifeCity Municipal Airfield","role":"private_and_utility","hangars":8,"runways":1},
+    {"id":"LCAB","name":"LifeCity Air Base","role":"military","hangars":10,"runways":2}
+  ]
+}
