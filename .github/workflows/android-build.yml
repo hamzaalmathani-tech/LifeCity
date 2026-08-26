@@ -1,0 +1,25 @@
+name: Build LifeCity Android APK
+
+on:
+  push:
+    paths:
+      - 'godot/**'
+      - '.github/workflows/android-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.4.1
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import project
+        run: godot --headless --editor --path godot --quit
+      - name: Build Android APK
+        run: godot --headless --path godot --export-debug "Android" /tmp/LifeCity.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: LifeCity-Android-debug
+          path: /tmp/LifeCity.apk
