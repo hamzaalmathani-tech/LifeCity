@@ -1,51 +1,6 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="Script" path="res://scripts/player.gd" id="2_player"]
-
-[sub_resource type="CapsuleShape3D" id="PlayerShape"]
-radius = 0.45
-height = 1.8
-
-[sub_resource type="CapsuleMesh" id="PlayerMesh"]
-radius = 0.45
-height = 1.8
-
-[sub_resource type="StandardMaterial3D" id="PlayerMat"]
-albedo_color = Color(0.08, 0.12, 0.2, 1)
-
-[sub_resource type="Environment" id="Env"]
-background_mode = 1
-background_color = Color(0.45, 0.7, 0.95, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.75, 0.82, 1, 1)
-ambient_light_energy = 0.7
 
 [node name="LifeCity" type="Node3D"]
 script = ExtResource("1_main")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Env")
-
-[node name="Sun" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-55, -30, 0)
-light_energy = 1.2
-shadow_enabled = true
-
-[node name="Player" type="CharacterBody3D" parent="."]
-position = Vector3(0, 1.0, 12)
-script = ExtResource("2_player")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-shape = SubResource("PlayerShape")
-
-[node name="Mesh" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("PlayerMesh")
-material_override = SubResource("PlayerMat")
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-position = Vector3(0, 3.4, 6.5)
-rotation_degrees = Vector3(-14, 0, 0)
-current = true
-
-[node name="UI" type="CanvasLayer" parent="."]
